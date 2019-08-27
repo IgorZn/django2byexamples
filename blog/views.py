@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.mail import send_mail
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
@@ -10,16 +11,30 @@ from .forms import EmailPostForm
 def post_share(request, post_id):
     # Get post by id
     post = get_object_or_404(Post, id=post_id, status='published')
+    sent = False
+
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
             # All fields are valid
             cd = form.cleaned_data
             # send email
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = f"{cd['name']}, ({cd['email']}) recomends you reading {post.title}"
+            message = f"Read {post.title} at {post_url}\n\n{cd['name']}\'s comments: {cd['comments']}"
+
+            send_mail(
+                subject,
+                message,
+                'igor.znamensky@gmail.com',
+                cd['to']
+            )
+            sent = True
         else:
             form = EmailPostForm()
             # Return form
-            return render(request, 'blog/post/list.html', {'post': post, 'form': form})
+            return render(request, 'blog/post/list.html', {'post': post, 'form': form, 'sent': sent})
+
 
 class PostListView(ListView):
     queryset = Post.published.all()
@@ -40,7 +55,7 @@ def post_list(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/post/list.html', {'page': page, 'posts': posts,})
+    return render(request, 'blog/post/list.html', {'page': page, 'posts': posts})
 
 
 def post_detail(request, year, month, day, post):
@@ -48,8 +63,8 @@ def post_detail(request, year, month, day, post):
         Post,
         slug=post,
         status='published',
-        published__year=year,
-        published__month=month,
-        published__day=day
+        publish__year=year,
+        publish__month=month,
+        publish__day=day
     )
     return render(request, 'blog/post/detail.html', {'post': post})
