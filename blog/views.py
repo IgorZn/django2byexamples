@@ -20,21 +20,22 @@ def post_share(request, post_id):
             cd = form.cleaned_data
             # send email
             post_url = request.build_absolute_uri(post.get_absolute_url())
-            subject = f"{cd['name']}, ({cd['email']}) recomends you reading {post.title}"
+            subject = f"{cd['name']} ({cd['email']}) recomends you reading {post.title}"
             message = f"Read {post.title} at {post_url}\n\n{cd['name']}\'s comments: {cd['comments']}"
 
             send_mail(
                 subject,
                 message,
                 'igor.znamensky@gmail.com',
-                cd['to']
+                [cd['to']],
             )
             sent = True
-        else:
-            form = EmailPostForm()
-            # Return form
-            return render(request, 'blog/post/list.html', {'post': post, 'form': form, 'sent': sent})
 
+    else:
+        form = EmailPostForm()
+        # Return form
+
+    return render(request, 'blog/post/share.html', {'post': post, 'form': form, 'sent': sent})
 
 class PostListView(ListView):
     queryset = Post.published.all()
