@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 django = "*"
 django-taggit = "*"
+faker = "*"
 
 [requires]
 python_version = "3.7"

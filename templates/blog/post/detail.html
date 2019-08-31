@@ -14,6 +14,15 @@
     <h2>{{ total_comments }} comment {{ total_comments | pluralize }}</h2>
     {% endwith %}
 
+    <div class="recommend">
+        <p>Similar posts:
+            {% for similar in similar_posts %}
+                <p>{{ similar }}</p>
+            {% endfor %}
+        </p>
+    </div>
+
+
     {% for comment in comments %}
         <div class="comment">
             <p class="info">
