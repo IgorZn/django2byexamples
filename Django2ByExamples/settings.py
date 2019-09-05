@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
 
+    'django.contrib.postgres',
+
     'blog.apps.BlogConfig',
     'taggit',
 ]
@@ -82,12 +84,29 @@ WSGI_APPLICATION = 'Django2ByExamples.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+try:
+    from .local_settings.database import *
+except ImportError as importException:
+    raise Exception(
+        u'No module named "database" found. Create one using "database.default.py" as template.')
+
+# -- POSTGRESQL:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': DB_ENGINE,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
     }
 }
+
+# -- SQLITE3:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation

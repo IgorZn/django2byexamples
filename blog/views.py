@@ -7,7 +7,8 @@ from django.views.generic import ListView
 from taggit.models import Tag
 
 from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm
+from django.contrib.postgres.search import SearchVector
+from .forms import EmailPostForm, CommentForm, SearchForm
 
 # Create your views here.
 
@@ -116,5 +117,30 @@ def post_list(request, tag_slug=None):
     return render(request, 'blog/post/list.html', {'page': page,
                                                    'posts': posts,
                                                    'tag': tag})
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+
+    if 'query' in request.GET:
+        # -- request.GET -- search request from form (SearchForm)
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Post.objects.annotate(
+                # -- формируем запрос на поиск статей с использованием объекта SearchVector по
+                # двум полям: title и body
+                search=SearchVector('title', 'body'),
+            ).filter(search=query)
+
+    context = {
+        'form': form,
+        'query': query,
+        'results': results,
+    }
+
+    return render(request, 'blog/post/search.html', context)
 
 
