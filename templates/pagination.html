@@ -5,7 +5,7 @@
         {% endif %}
     </spann>
     <spann class="current">
-        Page {{ page.number }} of {{ page.paginator.num_page }}.
+        Page {{ page.number }} of {{ page.paginator.num_pages }}.
     </spann>
     {% if page.has_next %}
         <a href="?page={{ page.next_page_number }}">Next</a>

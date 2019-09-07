@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from taggit.models import Tag
 
 from .models import Post, Comment
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from .forms import EmailPostForm, CommentForm, SearchForm
 
 # Create your views here.
@@ -104,7 +104,6 @@ def post_list(request, tag_slug=None):
 
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
-    tags = Post.tags.all()
 
     try:
         posts = paginator.page(page)
@@ -132,12 +131,17 @@ def post_search(request):
             search_vector = SearchVector('title', weight='A') + SearchVector('body', weight='B')
             search_query = SearchQuery(query)
 
+            # results = Post.objects.annotate(
+            #     # -- формируем запрос на поиск статей с использованием объекта SearchVector по
+            #     # двум полям: title и body
+            #     search=search_vector,
+            #     rank=SearchRank(search_vector, search_query)
+            # ).filter(rank__gte=0.3).order_by('-rank')
+
+            # работает ч/з раз, если ,вообще, рабоает.
             results = Post.objects.annotate(
-                # -- формируем запрос на поиск статей с использованием объекта SearchVector по
-                # двум полям: title и body
-                search=search_vector,
-                rank=SearchRank(search_vector, search_query)
-            ).filter(rank__gte=0.3).order_by('-rank')
+                similarity=TrigramSimilarity('title', query),
+            ).filter(similarity__gt=0.1).order_by('-similarity')
 
     context = {
         'form': form,
