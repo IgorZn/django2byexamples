@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     'blog.apps.BlogConfig',
+    'account.apps.AccountConfig',
     'taggit',
 ]
 
