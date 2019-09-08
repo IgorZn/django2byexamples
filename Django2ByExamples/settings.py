@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     'django.contrib.postgres',
+    'crispy_forms',
 
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
@@ -158,3 +159,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'igor.znamensky@gmail.com'
 EMAIL_HOST_PASSWORD = 'nbhwxglcnzzizugx'
 EMAIL_USE_TLS = True
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
