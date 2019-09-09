@@ -153,12 +153,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Django2ByExamples/static'),
 ]
 
-# Email config
+# -- EMAIL CONFIG
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'igor.znamensky@gmail.com'
 EMAIL_HOST_PASSWORD = 'nbhwxglcnzzizugx'
 EMAIL_USE_TLS = True
 
-# Crispy forms
+# -- CRISPY FORMS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# -- LOGIN
+# LOGIN_REDIRECT_URL = 'account:dashboard'
+LOGIN_REDIRECT_URL = 'blog:post_list'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
