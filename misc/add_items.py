@@ -47,7 +47,7 @@ def add_tags_to_posts():
 
 
 def main():
-    # add_posts(10)
+    add_posts(10)
     add_tags_to_posts()
 
 

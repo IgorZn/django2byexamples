@@ -5,9 +5,9 @@
         {% endif %}
     </spann>
     <spann class="current">
-        Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        Page {{ page.number }} of {{ page.paginator.num_pages }}
     </spann>
     {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}">Next</a>
+        <a href="?page={{ page.next_page_number }}">&nbsp;Next</a>
     {% endif %}
 </div>

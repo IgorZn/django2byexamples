@@ -154,10 +154,12 @@ STATICFILES_DIRS = [
 ]
 
 # -- EMAIL CONFIG
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'igor.znamensky@gmail.com'
-EMAIL_HOST_PASSWORD = 'nbhwxglcnzzizugx'
+EMAIL_HOST_PASSWORD = 'jvmnhqndgdapssvu'
 EMAIL_USE_TLS = True
 
 # -- CRISPY FORMS
