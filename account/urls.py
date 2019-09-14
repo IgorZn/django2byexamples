@@ -34,7 +34,12 @@ urlpatterns = [
     path('reset/done/',
          auth_view.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
+    # -- END OF RESET PASSWORD URLS
 
+
+    path('register/', views.register, name='register'),
 
     path('', views.dashboard, name='dashboard'),
 ]
+
+
