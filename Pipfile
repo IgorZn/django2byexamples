@@ -12,6 +12,7 @@ faker = "*"
 markdown = "*"
 psycopg2 = "*"
 django-crispy-forms = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

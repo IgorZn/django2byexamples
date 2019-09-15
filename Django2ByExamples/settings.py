@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
+    'pages.apps.PagesConfig',
     'taggit',
 ]
 
@@ -170,3 +171,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'blog:post_list'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+# -- MEDIA FOLDER
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

@@ -18,11 +18,22 @@ from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 sitemaps = {'post': PostSitemap}
 
 urlpatterns = [
+    path('', include('pages.urls')),
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('account/', include('account.urls', namespace='account')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Функция static() подходит только для локальной разработки, но не для применения на
+# боевых серверах. Никогда не используйте Django в качестве поставщика статических
+# и медиафайлов.
