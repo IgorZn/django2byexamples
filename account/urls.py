@@ -38,6 +38,8 @@ urlpatterns = [
 
 
     path('register/', views.register, name='register'),
+    path('edit/', views.edit, name='edit'),
+    path('profile/', views.profile, name='profile'),
 
     path('', views.dashboard, name='dashboard'),
 ]
