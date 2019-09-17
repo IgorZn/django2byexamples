@@ -1,8 +1,10 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages, auth
+from django.contrib.auth import views as auth_view
 
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile
@@ -51,7 +53,8 @@ def user_login(request):
             if user.is_active:
                 # если пользователь активный, авторизуем его на сайте
                 # посредством вызова функции login()
-                login(request, user)
+                auth.login(request, user)
+                messages.success(request, 'You are now logged in')
                 return HttpResponse('Authenticated successfully')
             else:
                 return HttpResponse('Disabled account')
@@ -61,6 +64,13 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, 'account/login.html', {'form': form})
+
+class MyLogin(auth_view.LoginView):
+    def form_valid(self, form):
+        """Security check complete. Log the user in."""
+        login(self.request, form.get_user())
+        messages.success(self.request, 'You are now logged in')
+        return HttpResponseRedirect(self.get_success_url())
 
 
 @login_required
