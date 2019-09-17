@@ -14,11 +14,11 @@
 
 <!-- Header -->
 {% include  'partials/_header.html' %}
-<div id="container">
+<div class="container-fluid">
 <!-- Alerts -->
 {% include 'partials/_alerts.html' %}
         <div class="row">
-                <div class="col-md-8">
+                <div class="col-8 col-md-8">
                     <!-- header -->
                     <div class="container">
                         <div class="row">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-4 col-md-4">
                     <h2><a href="{% url "blog:post_list" %}">My blog</a></h2>
                     <p>This is my blog. Total posts are: {% total_posts %}</p>
                     <p><a href="{% url 'blog:post_feed' %}">Subscribe to my RSS feed</a></p>
@@ -51,11 +51,15 @@
                 </div>
         </div>
 </div>
+<br>
+<br>
+<br>
 <!-- Footer -->
 {% include 'partials/_footer.html' %}
 
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/lightbox.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/lightbox.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
 </body>
 </html>
