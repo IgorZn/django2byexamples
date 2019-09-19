@@ -27,7 +27,11 @@ SECRET_KEY = 'n%-hsgmi!bes+9l9-m3ipa6e55*x-%47y!9uq4)!(px05$_+cn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mysite.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 SITE_ID = 1
 
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
 
     'django.contrib.postgres',
     'crispy_forms',
+    'social_django',
 
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
@@ -185,5 +190,10 @@ MESSAGE_TAGS = {
 # -- AUTHENTICATION
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'account.authentication.EmailAuthBackend'
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2'
 ]
+
+SOCIAL_AUTH_FACEBOOK_KEY = '2200748369968868'
+SOCIAL_AUTH_FACEBOOK_SECRET = '1849b0584d629cdbc750ebd6f0a738c9'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
