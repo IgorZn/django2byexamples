@@ -194,6 +194,13 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2'
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = '2200748369968868'
-SOCIAL_AUTH_FACEBOOK_SECRET = '1849b0584d629cdbc750ebd6f0a738c9'
+
+try:
+    from .local_settings.facebook import *
+except ImportError as importException:
+    raise Exception(
+        u'No module named "database" found. Create one using "database.default.py" as template.')
+
+SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
+SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']

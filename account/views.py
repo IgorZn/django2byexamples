@@ -66,6 +66,8 @@ def user_login(request):
     return render(request, 'account/login.html', {'form': form})
 
 class MyLogin(auth_view.LoginView):
+    # template_name = 'account/login.html'
+
     def form_valid(self, form):
         """Security check complete. Log the user in."""
         login(self.request, form.get_user())
