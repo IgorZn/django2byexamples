@@ -7,9 +7,15 @@
 
 
 {% block content %}
-    <h1>Logged out</h1>
-    <p>You have been successfully logget out.
-    Log-in <a href="{% url 'account:login' %}">again</a>
-        or you can <a href="{% url 'account:register' %}">register</a>.
-    </p>
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+
+        <h1>Logged out</h1>
+        <p>You have been successfully logget out.
+        Log-in <a href="{% url 'account:login' %}" class="btn btn-primary stretched-link">again</a>
+            or you can <a href="{% url 'account:register' %}">register</a>.
+        </p>
+      </div>
+    </div>
 {% endblock %}

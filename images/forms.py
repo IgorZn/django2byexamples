@@ -6,7 +6,7 @@ from django.core.files.base import ContentFile
 from django.utils.text import slugify
 
 
-class ImageCreateForm(forms.Form):
+class ImageCreateForm(forms.ModelForm):
     """
     Django дает возможность проверять каждое поле формы по отдельности с помощью методов вида clean_<fieldname>().
     Эти методы вызываются, когда мы обращаемся к методу is_valid() формы. Внутри функции валидации мы можем подменять
@@ -21,22 +21,21 @@ class ImageCreateForm(forms.Form):
     def clean_url(self):
         url = self.cleaned_data['url']
         valid_extension = ['jpg', 'jpeg']
-        extension = url.split('.')[1].lower()
+        extension = url.rsplit('.', 1)[1].lower()
 
         if extension not in valid_extension:
             raise forms.ValidationError('The given URL doesnt match valid image extension')
 
         return url
 
-
     def save(self, force_insert=False, force_update=False, commit=True):
         image = super().save(commit=False)
         image_url = self.cleaned_data['url']
-        image_name = f'{slugify(image.title)}.{image_url.split(".")[1].lower()}'
+        image_name = f'{slugify(image.title)}.{image_url.rsplit(".", 1)[1].lower()}'
 
         # Скачиваем изображение
-        response = request.urlparse(image_url)
-        image.image.save(image_name, ContentFile(response.read()), save=False)
+        response = request.urlopen(image_url)
+        image.images.save(image_name, ContentFile(response.read()), save=False)
 
         if commit:
             image.save()
