@@ -8,7 +8,20 @@
 {% block content %}
     <div class="container">
         <h1>Dashboard</h1>
-        <p>Welcome to dashboard.</p>
-        <p><a href="{% url 'account:password_change' %}">Change password</a></p>
+        {% with total_images_created=request.user.images_created.count %}
+            <p>Welcome to dashboard. You have bookmarked
+            {{ total_images_created }} image {{ total_images_created | pluralize }}.</p>
+        {% endwith %}
+    <span class="text-left">
+        <p>Drag the following button to your bookmarks toolbar to bookmark images from other sites
+            <a href="{% include 'images/bookmarklet_launcher.js' %}" class="btn btn-primary p-1 mt-3 w-50">Bookmarked it!</a>
+        </p>
+        <p>
+            <a href="{% url 'account:password_change' %}" class="btn btn-primary p-1 w-50">Change password</a>
+        </p>
+        <p>
+            <a href="{% url "account:edit" %}" class="btn btn-primary p-1 w-50">You can also edit your profile</a>
+        </p>
+    </span>
     </div>
 {% endblock %}
