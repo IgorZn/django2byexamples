@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load blog_tags %}
+{% load thumbnail %}
 
 {% block title %}{{ image.title}}{% endblock %}
 
@@ -8,7 +9,14 @@
 
 {% block content %}
     <div class="display-4">{{ image.title}}</div>
-    <img src="{{ image.url }}" class="w-50" alt="{{ image.description }}">
+
+    {% thumbnail image.images "300" as im %}
+        <a href="{{ image.url }}">
+            <img src="{{ im.url }}" class="image-detail">
+        </a>
+    {% endthumbnail %}
+
+
     {% with total_likes=image.user_like.count %}
         <div class="image-info">
             <div>

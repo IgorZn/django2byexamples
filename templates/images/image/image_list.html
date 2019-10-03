@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load blog_tags %}
+
+{% block title %}Bookmark an image{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="display-3">Image list</div>
+        <div class="display-5">URLs of pics</div>
+    <ul>
+        {% for url in urls %}
+            <li><a href="{{ url.url }}">{{ url.title }}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endblock %}

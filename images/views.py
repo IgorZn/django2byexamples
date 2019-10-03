@@ -32,3 +32,9 @@ def image_create(request):
     form = ImageCreateForm(data=request.GET)
     context = {'section': 'images', 'form': form}
     return render(request, 'images/image/create.html', context)
+
+
+def image_list(request):
+    object_list = Image.objects.all()
+    context = {'urls': object_list}
+    return render(request, 'images/image/image_list.html', context)

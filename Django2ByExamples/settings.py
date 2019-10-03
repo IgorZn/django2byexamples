@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'crispy_forms',
     'social_django',
+    'sorl.thumbnail',
 
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
