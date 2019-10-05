@@ -11,7 +11,10 @@
         <div class="display-5">URLs of pics</div>
     <ul>
         {% for url in urls %}
-            <li><a href="{{ url.url }}">{{ url.title }}</a></li>
+            <li>
+                <p><a href="{{ url.url }}">{{ url.title }}</a></p>
+                <p><a href="/detail/{{ url.id }}/{{ url.slug }}">Edit {{ url.title }}</a></p>
+            </li>
         {% endfor %}
     </ul>
     </div>
