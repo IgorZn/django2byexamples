@@ -6,6 +6,9 @@ from .views import MyLogin
 app_name = 'account'
 
 urlpatterns = [
+    path('users/', views.user_list, name='user_list'),
+    path('user/<username>/', views.user_detail, name='user_detail'),
+
     # path('login/', views.user_login, name='login'),
     # path('login/', auth_view.LoginView.as_view(), name='login'),
     path('login/', MyLogin.as_view(), name='login'),

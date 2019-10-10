@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static "css/blog.css" %}">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bookmarklet.css' %}">
 </head>
 <body>
 
@@ -60,10 +61,10 @@
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/lightbox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="{% static 'js/csrf_defend.js' %}"></script>
 <script>
-    $(document).ready(function () {
-        {% block domready %}{% endblock %}
-    })
+
 </script>
 </body>
 </html>
