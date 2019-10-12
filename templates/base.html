@@ -62,9 +62,26 @@
 <script src="{% static 'js/lightbox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<script src="{% static 'js/csrf_defend.js' %}"></script>
-<script>
 
+<script>
+    var csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method){
+        // Для этих методов токен не будет подставляться в заголовок.
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        {% block domready %}{% endblock %}
+    });
 </script>
+
 </body>
 </html>

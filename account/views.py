@@ -19,6 +19,7 @@ from .models import Contact
 
 # Create your views here.
 
+
 @ajax_required
 @require_POST
 @login_required
@@ -34,8 +35,9 @@ def user_follow(request):
                 Contact.objects.filter(user_form=request.user, user_to=user).delete()
             return JsonResponse({'status': 'ok'})
         except User.DoesNotExist:
-            return JsonResponse({'status':'ok'})
-    return JsonResponse({'status':'ok'})
+            return JsonResponse({'status': 'ok'})
+    return JsonResponse({'status': 'ok'})
+
 
 @login_required
 def user_list(request):
