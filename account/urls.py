@@ -6,6 +6,7 @@ from .views import MyLogin
 app_name = 'account'
 
 urlpatterns = [
+    path('users/follow', views.user_follow, name='user_follow'),
     path('users/', views.user_list, name='user_list'),
     path('user/<username>/', views.user_detail, name='user_detail'),
 
