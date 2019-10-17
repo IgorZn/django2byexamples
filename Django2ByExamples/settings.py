@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
     'images.apps.ImagesConfig',
+    'actions.apps.ActionsConfig',
     'taggit',
 ]
 
