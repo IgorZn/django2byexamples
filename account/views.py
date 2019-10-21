@@ -17,6 +17,9 @@ from django.views.decorators.http import require_POST
 from common.decorators import ajax_required
 from .models import Contact
 
+from actions.utils import create_action
+from actions.models import Action
+
 # Create your views here.
 
 
@@ -31,6 +34,7 @@ def user_follow(request):
             user = User.objects.get(id=user_id)
             if action == 'follow':
                 Contact.objects.get_or_create(user_form=request.user, user_to=user)
+                create_action(request.user, 'is following', user)
             else:
                 Contact.objects.filter(user_form=request.user, user_to=user).delete()
             return JsonResponse({'status': 'ok'})
@@ -73,6 +77,7 @@ def register(request):
 
             # Создать Profile новому пользователю
             Profile.objects.create(user=new_user)
+            create_action(new_user, 'has created an account')
 
             # Задаем пользователю зашифрованный пароль.
             new_user.save()
@@ -128,7 +133,21 @@ class MyLogin(auth_view.LoginView):
 
 @login_required
 def dashboard(request):
-    return render(request, 'account/dashboard.html', {'session': dashboard})
+    # По умолчанию отображаем все действия.
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+    if following_ids:
+        # Если текущий пользователь подписался на кого-то,
+        # отображаем только действия этих пользователей.
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions.select_related('user', 'user__profile').prefetch_related('target')[:10]
+
+    context = {
+        'session': dashboard,
+        'actions': actions
+    }
+
+    return render(request, 'account/dashboard.html', context)
 
 
 @login_required

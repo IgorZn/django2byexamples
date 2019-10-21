@@ -3,7 +3,12 @@
 
 {% block title %}Dashboard{% endblock %}
 
-
+<div class="display-3">What's happening</div>
+<div id="action-list">
+    {% for action in actions %}
+        {% include 'actions/action/detail.html' %}
+    {% endfor %}
+</div>
 
 {% block content %}
     <div class="container">
@@ -14,7 +19,7 @@
         {% endwith %}
     <span class="text-left">
         <p>Drag the following button to your bookmarks toolbar to bookmark images from other sites
-            <a href="{% include 'images/bookmarklet_launcher.js' %}" class="btn btn-primary p-1 mt-3 w-50">Bookmarked it!</a>
+            <a href="javascript:{% include 'images/bookmarklet_launcher.js' %}" class="btn btn-primary p-1 mt-3 w-50">Bookmarked it!</a>
         </p>
         <p>
             <a href="{% url 'account:password_change' %}" class="btn btn-primary p-1 w-50">Change password</a>

@@ -8,6 +8,7 @@ from .models import Image
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from actions.utils import create_action
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ def image_like(request):
             image = Image.objects.get(id=image_id)
             if action == 'like':
                 image.user_like.add(request.user)
+                create_action(request.user, 'likes', image)
             else:
                 image.user_like.remove(request.user)
             return JsonResponse({'status': 'ok'})
@@ -48,6 +50,7 @@ def image_create(request):
             # добавляем пользователя к созданному объекту
             new_item.user = request.user
             new_item.save()
+            create_action(request.user, 'bookmarked like', new_item)
             messages.success(request, 'Image added successfully')
             return redirect(new_item.get_absolute_url())
 
