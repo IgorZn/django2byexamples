@@ -10,6 +10,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from actions.utils import create_action
 
+from django.contrib import auth
+
 # Create your views here.
 
 @login_required
@@ -32,9 +34,12 @@ def image_like(request):
     return JsonResponse({'status': 'ok'})
 
 
-def image_details(request, id, slug):
+def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
-    context = {'section': 'images', 'image': image}
+    context = {
+        'section': 'images',
+        'image': image
+    }
     return render(request, 'images/image/detail.html', context)
 
 
@@ -50,12 +55,16 @@ def image_create(request):
             # добавляем пользователя к созданному объекту
             new_item.user = request.user
             new_item.save()
-            create_action(request.user, 'bookmarked like', new_item)
+            create_action(request.user, 'bookmarked image', new_item)
             messages.success(request, 'Image added successfully')
             return redirect(new_item.get_absolute_url())
 
     form = ImageCreateForm(data=request.GET)
-    context = {'section': 'images', 'form': form}
+
+    context = {
+        'section': 'images',
+        'form': form
+    }
     return render(request, 'images/image/create.html', context)
 
 
