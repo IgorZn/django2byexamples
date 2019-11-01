@@ -25,12 +25,14 @@ r = redis.StrictRedis(host=settings.REDIS_HOST,
 @login_required
 def image_ranking(request):
     # Получаем набор рейтинга картинок.
-    image_ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
-    image_ranking_ids = [int(id) for id in image_ranking]
+    _image_ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
+    image_ranking_ids = [int(_id) for _id in _image_ranking]
 
     # Получаем отсортированный список самых популярных картинок.
     most_viewed = list(Image.objects.filter(id__in=image_ranking_ids))
     most_viewed.sort(key=lambda x: image_ranking_ids.index(x.id))
+
+    print(_image_ranking, most_viewed)
 
     context = {
         'section': 'images',
@@ -62,6 +64,7 @@ def image_like(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    print(image)
 
     # Увеличиваем количество просмотров картинки на 1
     total_views = r.incr(f'image:{image.id}:views')
