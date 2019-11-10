@@ -14,6 +14,7 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
 
         self.cart = cart
+        print('self.cart', self.cart)
 
     def __iter__(self):
         # Проходим по товарам корзины и получаем соответствующие объекты Product
