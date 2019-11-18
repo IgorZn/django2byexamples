@@ -4,6 +4,7 @@ from .forms import OrderCreateForm
 from cart.cart import Cart
 
 
+
 # Create your views here.
 
 def order_create(request):
@@ -19,12 +20,12 @@ def order_create(request):
                     price=item['price'],
                     quantity=item['quantity'])
 
-                # Очищаем корзину
-                cart.clean()
-                context = {
-                    'order': order,
-                }
-                return render(request, 'orders/order/created.html', context)
+            # Очищаем корзину
+            cart.clean()
+            context = {
+                'order': order,
+            }
+            return render(request, 'orders/order/created.html', context)
 
     else:
         form = OrderCreateForm()
@@ -34,4 +35,4 @@ def order_create(request):
         'form': form,
     }
 
-    return render(request, 'orders/order/created.html', context)
+    return render(request, 'orders/order/create.html', context)
