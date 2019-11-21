@@ -10,6 +10,7 @@ django = "*"
 pillow = "*"
 celery = "*"
 flower = "*"
+gevent = "*"
 
 [requires]
 python_version = "3.7"
