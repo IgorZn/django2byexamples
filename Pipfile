@@ -11,6 +11,7 @@ pillow = "*"
 celery = "*"
 flower = "*"
 gevent = "*"
+braintree = "*"
 
 [requires]
 python_version = "3.7"
