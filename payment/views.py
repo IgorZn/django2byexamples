@@ -25,7 +25,7 @@ class PaymentProcess(View):
 
         # Создание и сохранение транзакции
         result = braintree.Transaction.sale({
-            'amount': f'{order.get_total_coast()}',
+            'amount': f':{order.get_total_cost()}',
             'payment_method_nonce': nonce,
             'options': {'submit_for_settlement': True}
         })

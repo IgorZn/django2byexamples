@@ -1,6 +1,8 @@
 import os
 from celery import Celery
 
+
+
 # Задаем переменную окружения, содержащую название файла настроек нашего проекта
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MyShop.settings')
 # os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
