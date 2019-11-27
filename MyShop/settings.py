@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 
 https://github.com/PacktPublishing/Django-2-by-Example/tree/master/Chapter07
+
+celery -A MyShop worker -l info -P gevent
 """
 
 import os
