@@ -45,7 +45,7 @@ console.log(incr++, decr--);
 //     console.log('Hui tebe a ne correct!');
 // }
 //
-let numm = prompt('Число', 50);
+// let numm = prompt('Число', 50);
 // if(num < 49){
 //     console.log('Мало!');
 // } else if (num > 100) {
@@ -55,19 +55,49 @@ let numm = prompt('Число', 50);
 // }
 //
 // (num == 60) ? console.log('Мало!'): console.log('Нормуль');
+//
+// let num = 50;
+// switch (num) {
+//     case num < 50:
+//         console.log('Маловато!');
+//         break;
+//
+//     case num > 100:
+//         console.log('Мнговато!');
+//         break;
+//
+//     case 50:
+//         console.log('Ты даешь! Как угадал?');
+//         break;
+//
+// }
+//
+// while (num <100){
+//     num++;
+//     console.log(num);
+// }
+//
+// for (let i = 0; i < 10; i++){
+//     console.log(i)
+// }
+//
+// function showMessage(text) {
+//     alert(text)
+// }
+//
+// showMessage("Show that Mama give you!")
 
-let num = 50;
-switch (num) {
-    case num < 50:
-        console.log('Маловато!');
-        break;
-
-    case num > 100:
-        console.log('Мнговато!');
-        break;
-
-    case 50:
-        console.log('Ты даешь! Как угадал?');
-        break;
-
+function calc(a, b) {
+    return (a + b);
 }
+
+let multi = (a,b) => a*b
+
+
+console.log(calc(1,1))
+
+let expression_f = function (text) {
+    return console.log(text)
+}
+
+expression_f("expression_f")

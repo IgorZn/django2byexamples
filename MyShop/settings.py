@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 
-https://github.com/PacktPublishing/Django-2-by-Example/tree/master/Chapter07
+https://github.com/PacktPublishing/Django-2-by-Example/tree/master/Chapter07/myshop
+https://github.com/PacktPublishing/Django-2-by-Example/tree/master/Chapter08/myshop
 
 celery -A MyShop worker -l info -P gevent
 """
