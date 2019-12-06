@@ -13,13 +13,15 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 import weasyprint
 
-
-
 # Create your views here.
+@staff_member_required
+def
+
 @staff_member_required
 def admin_order_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    return render(request, 'admin/or')
+    context = {'order': order}
+    return render(request, 'admin/orders/order/detail.html', context)
 
 def order_create(request):
     cart = Cart(request)
