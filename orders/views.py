@@ -11,17 +11,22 @@ from .models import Order
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-import weasyprint
+# import weasyprint
 
 # Create your views here.
 @staff_member_required
-def
+def admin_order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    context = {'order': order}
+    return render(request, 'admin/orders/order/detail.html', context)
+
 
 @staff_member_required
 def admin_order_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     context = {'order': order}
     return render(request, 'admin/orders/order/detail.html', context)
+
 
 def order_create(request):
     cart = Cart(request)
