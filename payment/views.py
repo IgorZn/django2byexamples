@@ -5,6 +5,13 @@ from braintree import Configuration, Environment
 import braintree
 from django.views.generic import View
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.conf import settings
+import weasyprint
+from io import BytesIO
+
+
 Configuration.configure(
     Environment.Sandbox,
     braintree_keys.BRAINTREE_MERCHANT_ID,
@@ -37,6 +44,21 @@ class PaymentProcess(View):
             # Сохранение ID транзакции в заказе
             order.braintree_id = result.transaction.id
             order.save()
+            # Создание электронного сообщения.
+            subject = f'My Shop - Invoice no. {order.id}'
+            message = 'attached the invoice for your recent purchase.'
+            email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [order.email])
+
+            # Формирование PDF
+            html = render_to_string('orders/order/pdf.html', {'order': order})
+            out = BytesIO()
+            stylesheets = [weasyprint.CSS('static\\' + 'css/pdf.css')]
+            weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
+            email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+
+            # Отправка сообщения.
+            email.send()
+
             return redirect('payment:done')
         else:
             return redirect('payment:canceled')

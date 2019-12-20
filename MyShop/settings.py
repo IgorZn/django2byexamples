@@ -152,3 +152,6 @@ CART_SESSION_ID = 'cart'
 
 # # Настройки Braintree
 # from .braintree_keys import *
+
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

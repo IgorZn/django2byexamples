@@ -9,6 +9,10 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 
+def order_pdf(obj):
+    return mark_safe(f'<a href="{reverse("orders:admin_order_pdf", args=[obj.id])}">PDF</a>')
+
+order_pdf.short_description = 'Invoice'
 
 def order_detail(obj):
     return mark_safe(f'<a href="{reverse("orders:admin_order_detail", args=[obj.id])}">View</a>')
@@ -58,7 +62,8 @@ class OrderAdmin(admin.ModelAdmin):
         'paid',
         'created',
         'updated',
-        order_detail
+        order_detail,
+        order_pdf,
     )
 
     list_filter = ['paid', 'created', 'updated']
