@@ -15,7 +15,7 @@ def coupon_apply(request):
         code = form.cleaned_data['code']
         try:
             coupon = Coupon.objects.get(code__exact=code,
-                                        valid_from=now,
+                                        valid_from__lte=now,
                                         valid_to__gte=now,
                                         active=True
                                         )

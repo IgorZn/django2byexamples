@@ -36,6 +36,7 @@ class ProductDetail(View):
 
         return render(request, 'shop/product/detail.html', context)
 
+
 def java_script(request):
     context = {}
     return render(request, 'shop/js_page.html', context)
